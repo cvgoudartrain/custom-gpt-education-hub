@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Custom GPT Education Hub - AI-Powered tutoring assistants for NEET, JEE, CBSE, ICSE, State Boards, UPSC, and other competitive exams">
+    <meta name="keywords" content="Custom GPT, AI Tutor, ChatGPT, NEET, JEE, CBSE, UPSC, Education, Competitive Exams">
+    <title>Custom GPT Education Hub - AI-Powered Tutoring Assistants</title>
+
+    <style>
+        /* ===================================
+           Custom GPT Education Hub - Styles
+           Mirrored from NotebookLM Education Hub
+           =================================== */
+
+        /* CSS Variables for Theming */
+        :root {
+            /* Light theme colors */
+            --bg-primary: #f5f5f5;
+            --bg-secondary: #ffffff;
+            --text-primary: #333333;
+            --text-secondary: #666666;
+            --text-tertiary: #999999;
+
+            --gradient-start: #667eea;
+            --gradient-end: #764ba2;
+
+            --card-border: #e0e0e0;
+            --card-hover-shadow: rgba(0, 0, 0, 0.15);
+
+            --success: #4CAF50;
+            --warning: #FF9800;
+            --error: #f44336;
+            --info: #2196F3;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #1a1a2e;
+            --bg-secondary: #16213e;
+            --text-primary: #eaeaea;
+            --text-secondary: #b0b0b0;
+            --text-tertiary: #808080;
+
+            --card-border: #2c3e50;
+            --card-hover-shadow: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Base Styles */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        /* Header with Animation */
+        header {
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 15s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.3; }
+            50% { transform: scale(1.1) rotate(180deg); opacity: 0.5; }
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.2em;
+            font-weight: 800;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 1;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+            margin-top: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--success);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.9em;
+            margin-left: 10px;
+        }
+
+        header .theme-toggle {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            z-index: 10;
+        }
+
+        .theme-toggle {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            padding: 12px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Content sections */
+        .content {
+            background: var(--bg-secondary);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: var(--text-primary);
+            margin: 0 0 20px 0;
+            font-size: 1.8em;
+        }
+
+        .content p {
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+        }
+
+        .content a {
+            color: var(--gradient-start);
+            text-decoration: none;
+        }
+
+        .content a:hover {
+            text-decoration: underline;
+        }
+
+        /* Search */
+        .search-container {
+            margin: 20px 0;
+            position: relative;
+            max-width: 500px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 45px 12px 15px;
+            border: 2px solid var(--card-border);
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+            box-sizing: border-box;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--gradient-start);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-tertiary);
+            font-size: 1.2em;
+        }
+
+        /* Phased note */
+        .phased-note {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeeba 100%);
+            border: 1px solid #ffc107;
+            border-left: 4px solid #ffc107;
+            padding: 12px 16px;
+            border-radius: 6px;
+            margin: 15px 0;
+            font-size: 0.95em;
+            color: #856404;
+        }
+
+        .phased-note strong {
+            color: #664d03;
+        }
+
+        [data-theme="dark"] .phased-note {
+            background: linear-gradient(135deg, #3d3520 0%, #4a3f1f 100%);
+            border-color: #665200;
+            color: #ffd54f;
+        }
+
+        [data-theme="dark"] .phased-note strong {
+            color: #ffe082;
+        }
+
+        /* GPT grid */
+        .subject-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+            max-height: 600px;
+            overflow-y: auto;
+            padding-right: 10px;
+            scroll-behavior: smooth;
+        }
+
+        .subject-grid::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .subject-grid::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+            border-radius: 10px;
+        }
+
+        .subject-grid::-webkit-scrollbar-thumb {
+            background: var(--gradient-start);
+            border-radius: 10px;
+        }
+
+        .subject-grid::-webkit-scrollbar-thumb:hover {
+            background: var(--gradient-end);
+        }
+
+        .subject-card {
+            border: 2px solid var(--card-border);
+            background: var(--bg-secondary);
+            padding: 20px;
+            border-radius: 8px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-align: center;
+        }
+
+        .subject-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px var(--card-hover-shadow);
+            border-color: var(--gradient-start);
+        }
+
+        .subject-card.coming-soon {
+            opacity: 0.6;
+        }
+
+        .subject-card h3, .subject-card h4 {
+            color: var(--text-primary);
+        }
+
+        .subject-card p {
+            color: var(--text-secondary);
+            margin: 15px 0;
+        }
+
+        .subject-icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .subject-card.hidden {
+            display: none;
+        }
+
+        /* Buttons */
+        .button {
+            background: var(--gradient-start);
+            color: white !important;
+            padding: 12px 24px;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+            margin: 5px;
+            transition: background 0.3s, color 0.3s;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background: var(--gradient-end);
+            color: white !important;
+        }
+
+        .button-secondary {
+            background: transparent;
+            border: 2px solid var(--gradient-start);
+            color: var(--gradient-start) !important;
+        }
+
+        .button-secondary:hover {
+            background: var(--gradient-start);
+            color: white !important;
+        }
+
+        /* Strategy cards */
+        .strategy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .strategy-card {
+            border: 2px solid var(--card-border);
+            padding: 25px;
+            border-radius: 8px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            background: var(--bg-secondary);
+        }
+
+        .strategy-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px var(--card-hover-shadow);
+            border-color: var(--gradient-start);
+        }
+
+        .strategy-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .strategy-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin: 10px 0;
+            color: var(--text-primary);
+        }
+
+        /* Feature list */
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-list li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .feature-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        /* Step list */
+        .step-list {
+            counter-reset: step-counter;
+            list-style: none;
+            padding: 0;
+        }
+
+        .step-list li {
+            counter-increment: step-counter;
+            padding: 15px 0;
+            padding-left: 50px;
+            position: relative;
+            margin-bottom: 10px;
+        }
+
+        .step-list li:before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            background: var(--gradient-start);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* No results */
+        .no-results {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-secondary);
+            font-size: 1.1em;
+            display: none;
+        }
+
+        .no-results.visible {
+            display: block;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 40px;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--card-border);
+        }
+
+        footer a {
+            color: var(--gradient-start);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .subtitle {
+                font-size: 1em;
+            }
+
+            .subject-grid, .strategy-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+            <span class="theme-icon">🌙</span>
+        </button>
+        <h1>🎓 Custom GPT Education Hub</h1>
+        <div class="subtitle">AI-Powered Tutoring Assistants for NEET, JEE, CBSE, UPSC & More</div>
+    </header>
+
+    <div class="content">
+        <h2>🌟 Welcome</h2>
+        <p>Welcome to the Custom GPT Education Hub! This is your one-stop destination for accessing specialized AI tutoring assistants built on <a href="https://chatgpt.com" target="_blank">ChatGPT</a>.</p>
+        <p><strong>Each Custom GPT is designed with subject-specific expertise, pedagogical strategies, and exam-focused guidance to help students excel in competitive exams and board exams.</strong></p>
+    </div>
+
+    <div class="content">
+        <h2>📚 Available Custom GPTs</h2>
+        <p>Browse our collection of AI tutoring assistants:</p>
+
+        <div class="search-container">
+            <input type="text" id="subjectSearch" class="search-input" placeholder="Search GPTs (e.g., Physics, NEET, CBSE)...">
+            <span class="search-icon">🔍</span>
+        </div>
+
+        <div class="phased-note">
+            💡 <strong>ChatGPT Plus Required:</strong> These Custom GPTs require a ChatGPT Plus subscription to access. Click "Open GPT" to start learning!
+        </div>
+
+        <div class="subject-grid">
+            <!-- NEET Physics GPT -->
+            <div class="subject-card" data-search="neet physics science competitive">
+                <div class="subject-icon">⚛️</div>
+                <h3>NEET Physics Mentor</h3>
+                <h4><span class="badge">LIVE</span></h4>
+                <p>Your personal NEET Physics tutor. Adapts to your level - from basics to Top 100</p>
+                <a href="https://chatgpt.com/g/g-694fa00b8a4c8191984c93c806253d95-neet-physics-mentor" class="button" target="_blank">Open GPT →</a>
+            </div>
+
+            <!-- NEET Chemistry GPT -->
+            <div class="subject-card" data-search="neet chemistry competitive">
+                <div class="subject-icon">🧪</div>
+                <h3>NEET Chemistry Mentor</h3>
+                <h4><span class="badge">LIVE</span></h4>
+                <p>Master Physical, Organic & Inorganic Chemistry with NCERT focus and PYQ patterns</p>
+                <a href="https://chatgpt.com/g/g-694f82711ba481918b8bef230bdca491-neet-chemistry-mentor" class="button" target="_blank">Open GPT →</a>
+            </div>
+
+            <!-- NEET Biology GPT -->
+            <div class="subject-card" data-search="neet biology science competitive">
+                <div class="subject-icon">🧬</div>
+                <h3>NEET Biology Mentor</h3>
+                <h4><span class="badge">LIVE</span></h4>
+                <p>Master Physiology, Genetics, Biotechnology & Ecology with mnemonics and diagrams</p>
+                <a href="https://chatgpt.com/g/g-69500f9f79488191bdbcc39dfb465933-neet-biology-mentor" class="button" target="_blank">Open GPT →</a>
+            </div>
+
+            <!-- CBSE Class 10 Science GPT -->
+            <div class="subject-card" data-search="cbse class 10 science board exam">
+                <div class="subject-icon">🔬</div>
+                <h3>CBSE 10 Science Tutor</h3>
+                <h4><span class="badge">LIVE</span></h4>
+                <p>Comprehensive AI tutor covering Chemistry, Biology & Physics for board exam success</p>
+                <a href="https://chatgpt.com/g/g-6951697b60748191b24cab09dfd8b981-cbse-10-science-tutor" class="button" target="_blank">Open GPT →</a>
+            </div>
+
+            <!-- CBSE Class 10 Maths GPT -->
+            <div class="subject-card" data-search="cbse class 10 mathematics maths board exam">
+                <div class="subject-icon">📐</div>
+                <h3>CBSE 10 Maths Tutor</h3>
+                <h4><span class="badge">LIVE</span></h4>
+                <p>Step-by-step Mathematics tutor for CBSE Class 10 board exam preparation</p>
+                <a href="https://chatgpt.com/g/g-694fbf1b8274819195610539d3ec91ad-cbse-10-maths-tutor" class="button" target="_blank">Open GPT →</a>
+            </div>
+        </div>
+        <div class="no-results" id="noResults">No Custom GPTs found matching your search.</div>
+    </div>
+
+    <div class="content">
+        <h2>✨ Custom GPT Features</h2>
+        <p>What makes these AI tutors special:</p>
+
+        <div class="strategy-grid">
+            <div class="strategy-card">
+                <div class="strategy-icon">🎯</div>
+                <div class="strategy-title">Level-Based Learning</div>
+                <p>Personalized strategies for Below Average, Average, Above Average, and Top performers</p>
+            </div>
+
+            <div class="strategy-card">
+                <div class="strategy-icon">🧠</div>
+                <div class="strategy-title">Socratic Method</div>
+                <p>Guides with questions instead of direct answers to build deeper understanding</p>
+            </div>
+
+            <div class="strategy-card">
+                <div class="strategy-icon">📊</div>
+                <div class="strategy-title">Chapter Weightage</div>
+                <p>Focus on high-weightage topics with tier-based priority system</p>
+            </div>
+
+            <div class="strategy-card">
+                <div class="strategy-icon">🎓</div>
+                <div class="strategy-title">Exam-Specific</div>
+                <p>Tailored for NEET, JEE, CBSE, ICSE, State Boards, and competitive exams</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <h2>🚀 Quick Start Guide</h2>
+        <p><strong>How to use these Custom GPTs:</strong></p>
+
+        <ol class="step-list">
+            <li><strong>Click "Open GPT"</strong> to access the AI tutor directly in ChatGPT (requires ChatGPT Plus subscription)</li>
+            <li><strong>Start a conversation</strong> by telling the GPT your current level and learning goals</li>
+            <li><strong>Ask questions</strong> about specific topics, request practice problems, or seek concept clarifications</li>
+            <li><strong>Use study modes</strong> like flashcards, Q&A, concept maps, or problem-solving sessions</li>
+            <li><strong>Track progress</strong> with end-of-session reflections and identify knowledge gaps</li>
+        </ol>
+
+        <p style="margin-top: 20px;"><strong>Want to create your own Custom GPT?</strong> Learn more about <a href="https://help.openai.com/en/articles/8554397-creating-a-gpt" target="_blank">creating Custom GPTs</a> on OpenAI's website.</p>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Custom GPT Education Hub | <a href="https://github.com/cvgoudartrain/custom-gpt-education-hub" target="_blank">GitHub Repository</a></p>
+        <p style="margin-top: 10px; font-size: 0.9em;">This project is not affiliated with OpenAI. Custom GPTs require ChatGPT Plus subscription.</p>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.querySelector('.theme-icon');
+        const currentTheme = localStorage.getItem('theme') || 'light';
+
+        if (currentTheme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            themeIcon.textContent = '☀️';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            const theme = document.documentElement.getAttribute('data-theme');
+            if (theme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'light');
+                localStorage.setItem('theme', 'light');
+                themeIcon.textContent = '🌙';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+                themeIcon.textContent = '☀️';
+            }
+        });
+
+        // Search Functionality
+        const searchInput = document.getElementById('subjectSearch');
+        const subjectCards = document.querySelectorAll('.subject-card');
+        const noResults = document.getElementById('noResults');
+
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            let visibleCount = 0;
+
+            subjectCards.forEach(card => {
+                const searchData = card.getAttribute('data-search') || '';
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const description = card.querySelector('p').textContent.toLowerCase();
+
+                if (searchData.includes(searchTerm) || title.includes(searchTerm) || description.includes(searchTerm)) {
+                    card.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+
+            if (visibleCount === 0) {
+                noResults.classList.add('visible');
+            } else {
+                noResults.classList.remove('visible');
+            }
+        });
+    </script>
+</body>
+</html>
